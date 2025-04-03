@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HousingLocation} from './housinglocation';
+import {HousingLocation} from './model/housinglocation';
 @Injectable({
   providedIn: 'root',
 })
+
 export class HousingService {
   readonly baseUrl = 'https://angular.dev/assets/images/tutorials/common';
   protected casettaList: HousingLocation[] = [
@@ -110,7 +111,12 @@ export class HousingService {
   getAllHousingLocations(): HousingLocation[] {
     return this.casettaList;
   }
+  
   getHousingLocationById(id: number): HousingLocation | undefined {
     return this.casettaList.find((casetta) => casetta.id === id);
+  }
+
+  submitApplication(firstName: string, lastName: string, email: string) {
+    console.log(`Homes application received: firstName: ${firstName}, lastName: ${lastName}, email: ${email}.`,);
   }
 }
