@@ -24,8 +24,13 @@ export class DetailsComponent {
 
   constructor() {    
     const casettaRicevutaId = Number(this.route.snapshot.params['id']);    
-    this.casettaRicevuta = this.casettaService.getHousingLocationById(casettaRicevutaId);  
+    this.casettaService.getHousingLocationById(casettaRicevutaId).then(casetta => {
+      if (casetta) {
+        this.casettaRicevuta = casetta;        
+      }
+    });
   }
+  
 
   submitApplication() {
     this.casettaService.submitApplication(this.applyForm.value.firstName ?? '', this.applyForm.value.lastName ?? '', this.applyForm.value.email ?? '',);

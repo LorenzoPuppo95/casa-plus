@@ -18,8 +18,12 @@ export class HomeComponent {
   listaCasettaFiltrate: HousingLocation[] = [];
 
   constructor() {    
-    this.casettaList = this.casettaService.getAllHousingLocations();  
-    this.listaCasettaFiltrate = this.casettaList;
+    this.casettaService.getAllHousingLocations().then((casette: HousingLocation[]) => {      
+      this.casettaList = casette;      
+      this.listaCasettaFiltrate = casette; // Inizializza la lista filtrata con tutte le casette
+    });
+    // this.casettaList = this.casettaService.getAllHousingLocations();  
+    // this.listaCasettaFiltrate = this.casettaList;
   }
 
   filterResults(text: string) {

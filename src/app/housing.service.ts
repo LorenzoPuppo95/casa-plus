@@ -6,6 +6,7 @@ import {HousingLocation} from './model/housinglocation';
 
 export class HousingService {
   readonly baseUrl = 'https://angular.dev/assets/images/tutorials/common';
+  url = 'http://localhost:3000/locations';
   protected casettaList: HousingLocation[] = [
     {
       id: 0,
@@ -108,12 +109,25 @@ export class HousingService {
       laundry: true,
     },
   ];
-  getAllHousingLocations(): HousingLocation[] {
-    return this.casettaList;
+
+  // getAllHousingLocations(): HousingLocation[] {
+  async getAllHousingLocations(): Promise<HousingLocation[]> {
+    // return this.casettaList;
+    const data = await fetch(this.url);    
+    return (await data.json()) ?? [];
+    // const data = fetch(this.url)
+    //   .then((response) => response.json())
+    //   .catch((error) => {
+    //     console.error('Error fetching data:', error);
+    //   });
+    // return data ?? [];
   }
   
-  getHousingLocationById(id: number): HousingLocation | undefined {
-    return this.casettaList.find((casetta) => casetta.id === id);
+  async getHousingLocationById(id: number): Promise<HousingLocation | null> {    
+    const data = await fetch(`${this.url}/${id}`);    
+    return (await data.json()) ?? null;
+  // getHousingLocationById(id: number): HousingLocation | undefined {
+    // return this.casettaList.find((casetta) => casetta.id === id);
   }
 
   submitApplication(firstName: string, lastName: string, email: string) {
